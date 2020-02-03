@@ -260,23 +260,19 @@ abstract class GeneratedMessage {
   /// For the proto3 JSON format use: [mergeFromProto3JSON].
   void mergeFromJson(String data,
       [ExtensionRegistry extensionRegistry = ExtensionRegistry.EMPTY]) {
-    /// Disable lazy creation of Dart objects for a dart2js speedup.
-    /// This is a slight regression on the Dart VM.
-    /// TODO(skybrian) we could skip the reviver if we're running
-    /// on the Dart VM for a slight speedup.
-    final jsonMap =
-        jsonDecode(data, reviver: _emptyReviver) as Map<String, dynamic>;
-    _mergeFromJsonMap(_fieldSet, jsonMap, extensionRegistry);
+    _mergeFromJsonReader(
+        _fieldSet, JsonReader.fromString(data), extensionRegistry);
   }
 
-  static _emptyReviver(k, v) => v;
+  // static _emptyReviver(k, v) => v;
 
   /// Merges field values from a JSON object represented as a Dart map.
   ///
   /// The encoding is described in [GeneratedMessage.writeToJson].
   void mergeFromJsonMap(Map<String, dynamic> json,
       [ExtensionRegistry extensionRegistry = ExtensionRegistry.EMPTY]) {
-    _mergeFromJsonMap(_fieldSet, json, extensionRegistry);
+    _mergeFromJsonReader(
+        _fieldSet, JsonReader.fromObject(json), extensionRegistry);
   }
 
   /// Adds an extension field value to a repeated field.

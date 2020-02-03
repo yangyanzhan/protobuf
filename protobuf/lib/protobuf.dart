@@ -11,6 +11,7 @@ import 'dart:convert'
 import 'dart:math' as math;
 import 'dart:typed_data' show TypedData, Uint8List, ByteData, Endian;
 
+import 'package:convert/convert.dart';
 import 'package:fixnum/fixnum.dart' show Int64;
 
 import 'src/protobuf/json_parsing_context.dart';
