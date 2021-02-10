@@ -308,10 +308,7 @@ void main() {
 
   test('testReadHugeBlob', () {
     // Allocate and initialize a 1MB blob.
-    var blob = List<int>(1 << 20);
-    for (var i = 0; i < blob.length; i++) {
-      blob[i] = i % 256;
-    }
+    var blob = List<int>.generate(1 << 20, (i) => i % 256);
 
     // Make a message containing it.
     var message = getAllSet();
@@ -328,7 +325,7 @@ void main() {
   });
 
   test('testMaliciousRecursion', () {
-    GeneratedMessage _makeRecursiveMessage(int depth) {
+    TestRecursiveMessage _makeRecursiveMessage(int depth) {
       return depth == 0
           ? (TestRecursiveMessage()..i = 5)
           : (TestRecursiveMessage()..a = _makeRecursiveMessage(depth - 1));

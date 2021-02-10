@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: test
 //
-// @dart = 2.3
+// @dart = 2.7
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -17,7 +17,15 @@ class Int64 extends $pb.GeneratedMessage {
   ;
 
   Int64._() : super();
-  factory Int64() => create();
+  factory Int64({
+    $fixnum.Int64 value,
+  }) {
+    final _result = create();
+    if (value != null) {
+      _result.value = value;
+    }
+    return _result;
+  }
   factory Int64.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory Int64.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -29,7 +37,7 @@ class Int64 extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  Int64 copyWith(void Function(Int64) updates) => super.copyWith((message) => updates(message as Int64)); // ignore: deprecated_member_use
+  Int64 copyWith(void Function(Int64) updates) => super.copyWith((message) => updates(message as Int64)) as Int64; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static Int64 create() => Int64._();

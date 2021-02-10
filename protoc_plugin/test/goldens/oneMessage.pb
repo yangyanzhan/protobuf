@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: test
 //
-// @dart = 2.3
+// @dart = 2.7
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -17,7 +17,23 @@ class PhoneNumber extends $pb.GeneratedMessage {
   ;
 
   PhoneNumber._() : super();
-  factory PhoneNumber() => create();
+  factory PhoneNumber({
+    $core.String number,
+    $core.int type,
+    $core.String name,
+  }) {
+    final _result = create();
+    if (number != null) {
+      _result.number = number;
+    }
+    if (type != null) {
+      _result.type = type;
+    }
+    if (name != null) {
+      _result.name = name;
+    }
+    return _result;
+  }
   factory PhoneNumber.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory PhoneNumber.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -29,7 +45,7 @@ class PhoneNumber extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  PhoneNumber copyWith(void Function(PhoneNumber) updates) => super.copyWith((message) => updates(message as PhoneNumber)); // ignore: deprecated_member_use
+  PhoneNumber copyWith(void Function(PhoneNumber) updates) => super.copyWith((message) => updates(message as PhoneNumber)) as PhoneNumber; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static PhoneNumber create() => PhoneNumber._();

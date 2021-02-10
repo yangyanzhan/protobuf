@@ -66,7 +66,7 @@ class ServiceGenerator {
   void _addDependency(GenerationContext ctx, String fqname, String location) {
     if (_deps.containsKey(fqname)) return; // Already added.
 
-    MessageGenerator mg = ctx.getFieldType(fqname);
+    final mg = ctx.getFieldType(fqname) as MessageGenerator;
     if (mg == null) {
       _undefinedDeps[fqname] = location;
       return;
@@ -85,7 +85,8 @@ class ServiceGenerator {
     _transitiveDeps[mg.dottedName] = mg;
     for (var field in mg._fieldList) {
       if (field.baseType.isGroup || field.baseType.isMessage) {
-        _addDepsRecursively(field.baseType.generator, depth + 1);
+        _addDepsRecursively(
+            field.baseType.generator as MessageGenerator, depth + 1);
       }
     }
   }
@@ -116,7 +117,7 @@ class ServiceGenerator {
   /// When generating the main file (if [forMainFile] is true), all imports
   /// should be prefixed unless the target file is the main file (the client
   /// generator calls this method). Otherwise, prefix everything.
-  String _getDartClassName(String fqname, {forMainFile = false}) {
+  String _getDartClassName(String fqname, {bool forMainFile = false}) {
     var mg = _deps[fqname];
     if (mg == null) {
       var location = _undefinedDeps[fqname];
@@ -131,8 +132,7 @@ class ServiceGenerator {
 
   List<MethodDescriptorProto> get _methodDescriptors => _descriptor.method;
 
-  String _methodName(String name) =>
-      name.substring(0, 1).toLowerCase() + name.substring(1);
+  String _methodName(String name) => lowerCaseFirstLetter(name);
 
   String get _parentClass => _generatedService;
 
@@ -176,8 +176,9 @@ class ServiceGenerator {
       out.addBlock("switch (method) {", "}", () {
         for (var m in _methodDescriptors) {
           var methodName = _methodName(m.name);
+          final type = _getDartClassName(m.inputType);
           out.println(
-              "case '${m.name}': return this.$methodName(ctx, request);");
+              "case '${m.name}': return this.$methodName(ctx, request as $type);");
         }
         out.println("default: "
             "throw $_coreImportPrefix.ArgumentError('Unknown method: \$method');");
@@ -224,6 +225,9 @@ class ServiceGenerator {
     for (var key in _transitiveDeps.keys) {
       typeConstants[key] = _transitiveDeps[key].getJsonConstant(fileGen);
     }
+
+    out.println('@$_coreImportPrefix.Deprecated'
+        '(\'Use ${binaryDescriptorName} instead\')');
     out.addBlock("const $messageJsonConstant = const {", "};", () {
       for (var key in typeConstants.keys) {
         var typeConst = typeConstants[key];
@@ -239,6 +243,14 @@ class ServiceGenerator {
       }
       out.println();
     }
+  }
+
+  String get binaryDescriptorName {
+    var prefix = lowerCaseFirstLetter(classname);
+    if (prefix.endsWith('Base')) {
+      prefix = prefix.substring(0, prefix.length - 4);
+    }
+    return '${prefix}Descriptor';
   }
 
   static final String _future = '$_asyncImportPrefix.Future';

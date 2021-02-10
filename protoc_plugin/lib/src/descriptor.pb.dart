@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: descriptor.proto
 //
-// @dart = 2.3
+// @dart = 2.7
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -33,7 +33,15 @@ class FileDescriptorSet extends $pb.GeneratedMessage {
         subBuilder: FileDescriptorProto.create);
 
   FileDescriptorSet._() : super();
-  factory FileDescriptorSet() => create();
+  factory FileDescriptorSet({
+    $core.Iterable<FileDescriptorProto> file,
+  }) {
+    final _result = create();
+    if (file != null) {
+      _result.file.addAll(file);
+    }
+    return _result;
+  }
   factory FileDescriptorSet.fromBuffer($core.List<$core.int> i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
@@ -48,8 +56,8 @@ class FileDescriptorSet extends $pb.GeneratedMessage {
       'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
       'Will be removed in next major version')
   FileDescriptorSet copyWith(void Function(FileDescriptorSet) updates) =>
-      super.copyWith((message) => updates(
-          message as FileDescriptorSet)); // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as FileDescriptorSet))
+          as FileDescriptorSet; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static FileDescriptorSet create() => FileDescriptorSet._();
@@ -101,7 +109,59 @@ class FileDescriptorProto extends $pb.GeneratedMessage {
     ..aOS(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'syntax');
 
   FileDescriptorProto._() : super();
-  factory FileDescriptorProto() => create();
+  factory FileDescriptorProto({
+    $core.String name,
+    $core.String package,
+    $core.Iterable<$core.String> dependency,
+    $core.Iterable<DescriptorProto> messageType,
+    $core.Iterable<EnumDescriptorProto> enumType,
+    $core.Iterable<ServiceDescriptorProto> service,
+    $core.Iterable<FieldDescriptorProto> extension,
+    FileOptions options,
+    SourceCodeInfo sourceCodeInfo,
+    $core.Iterable<$core.int> publicDependency,
+    $core.Iterable<$core.int> weakDependency,
+    $core.String syntax,
+  }) {
+    final _result = create();
+    if (name != null) {
+      _result.name = name;
+    }
+    if (package != null) {
+      _result.package = package;
+    }
+    if (dependency != null) {
+      _result.dependency.addAll(dependency);
+    }
+    if (messageType != null) {
+      _result.messageType.addAll(messageType);
+    }
+    if (enumType != null) {
+      _result.enumType.addAll(enumType);
+    }
+    if (service != null) {
+      _result.service.addAll(service);
+    }
+    if (extension != null) {
+      _result.extension.addAll(extension);
+    }
+    if (options != null) {
+      _result.options = options;
+    }
+    if (sourceCodeInfo != null) {
+      _result.sourceCodeInfo = sourceCodeInfo;
+    }
+    if (publicDependency != null) {
+      _result.publicDependency.addAll(publicDependency);
+    }
+    if (weakDependency != null) {
+      _result.weakDependency.addAll(weakDependency);
+    }
+    if (syntax != null) {
+      _result.syntax = syntax;
+    }
+    return _result;
+  }
   factory FileDescriptorProto.fromBuffer($core.List<$core.int> i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
@@ -116,8 +176,8 @@ class FileDescriptorProto extends $pb.GeneratedMessage {
       'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
       'Will be removed in next major version')
   FileDescriptorProto copyWith(void Function(FileDescriptorProto) updates) =>
-      super.copyWith((message) => updates(
-          message as FileDescriptorProto)); // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as FileDescriptorProto))
+          as FileDescriptorProto; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static FileDescriptorProto create() => FileDescriptorProto._();
@@ -237,10 +297,28 @@ class DescriptorProto_ExtensionRange extends $pb.GeneratedMessage {
             ? ''
             : 'end',
         $pb.PbFieldType.O3)
-    ..hasRequiredFields = false;
+    ..aOM<ExtensionRangeOptions>(
+        3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'options',
+        subBuilder: ExtensionRangeOptions.create);
 
   DescriptorProto_ExtensionRange._() : super();
-  factory DescriptorProto_ExtensionRange() => create();
+  factory DescriptorProto_ExtensionRange({
+    $core.int start,
+    $core.int end,
+    ExtensionRangeOptions options,
+  }) {
+    final _result = create();
+    if (start != null) {
+      _result.start = start;
+    }
+    if (end != null) {
+      _result.end = end;
+    }
+    if (options != null) {
+      _result.options = options;
+    }
+    return _result;
+  }
   factory DescriptorProto_ExtensionRange.fromBuffer($core.List<$core.int> i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
@@ -257,8 +335,9 @@ class DescriptorProto_ExtensionRange extends $pb.GeneratedMessage {
       'Will be removed in next major version')
   DescriptorProto_ExtensionRange copyWith(
           void Function(DescriptorProto_ExtensionRange) updates) =>
-      super.copyWith((message) => updates(message
-          as DescriptorProto_ExtensionRange)); // ignore: deprecated_member_use
+      super.copyWith(
+              (message) => updates(message as DescriptorProto_ExtensionRange))
+          as DescriptorProto_ExtensionRange; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static DescriptorProto_ExtensionRange create() =>
@@ -294,6 +373,20 @@ class DescriptorProto_ExtensionRange extends $pb.GeneratedMessage {
   $core.bool hasEnd() => $_has(1);
   @$pb.TagNumber(2)
   void clearEnd() => clearField(2);
+
+  @$pb.TagNumber(3)
+  ExtensionRangeOptions get options => $_getN(2);
+  @$pb.TagNumber(3)
+  set options(ExtensionRangeOptions v) {
+    setField(3, v);
+  }
+
+  @$pb.TagNumber(3)
+  $core.bool hasOptions() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearOptions() => clearField(3);
+  @$pb.TagNumber(3)
+  ExtensionRangeOptions ensureOptions() => $_ensure(2);
 }
 
 class DescriptorProto_ReservedRange extends $pb.GeneratedMessage {
@@ -321,7 +414,19 @@ class DescriptorProto_ReservedRange extends $pb.GeneratedMessage {
     ..hasRequiredFields = false;
 
   DescriptorProto_ReservedRange._() : super();
-  factory DescriptorProto_ReservedRange() => create();
+  factory DescriptorProto_ReservedRange({
+    $core.int start,
+    $core.int end,
+  }) {
+    final _result = create();
+    if (start != null) {
+      _result.start = start;
+    }
+    if (end != null) {
+      _result.end = end;
+    }
+    return _result;
+  }
   factory DescriptorProto_ReservedRange.fromBuffer($core.List<$core.int> i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
@@ -338,8 +443,9 @@ class DescriptorProto_ReservedRange extends $pb.GeneratedMessage {
       'Will be removed in next major version')
   DescriptorProto_ReservedRange copyWith(
           void Function(DescriptorProto_ReservedRange) updates) =>
-      super.copyWith((message) => updates(message
-          as DescriptorProto_ReservedRange)); // ignore: deprecated_member_use
+      super.copyWith(
+              (message) => updates(message as DescriptorProto_ReservedRange))
+          as DescriptorProto_ReservedRange; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static DescriptorProto_ReservedRange create() =>
@@ -406,7 +512,51 @@ class DescriptorProto extends $pb.GeneratedMessage {
     ..pPS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'reservedName');
 
   DescriptorProto._() : super();
-  factory DescriptorProto() => create();
+  factory DescriptorProto({
+    $core.String name,
+    $core.Iterable<FieldDescriptorProto> field,
+    $core.Iterable<DescriptorProto> nestedType,
+    $core.Iterable<EnumDescriptorProto> enumType,
+    $core.Iterable<DescriptorProto_ExtensionRange> extensionRange,
+    $core.Iterable<FieldDescriptorProto> extension,
+    MessageOptions options,
+    $core.Iterable<OneofDescriptorProto> oneofDecl,
+    $core.Iterable<DescriptorProto_ReservedRange> reservedRange,
+    $core.Iterable<$core.String> reservedName,
+  }) {
+    final _result = create();
+    if (name != null) {
+      _result.name = name;
+    }
+    if (field != null) {
+      _result.field.addAll(field);
+    }
+    if (nestedType != null) {
+      _result.nestedType.addAll(nestedType);
+    }
+    if (enumType != null) {
+      _result.enumType.addAll(enumType);
+    }
+    if (extensionRange != null) {
+      _result.extensionRange.addAll(extensionRange);
+    }
+    if (extension != null) {
+      _result.extension.addAll(extension);
+    }
+    if (options != null) {
+      _result.options = options;
+    }
+    if (oneofDecl != null) {
+      _result.oneofDecl.addAll(oneofDecl);
+    }
+    if (reservedRange != null) {
+      _result.reservedRange.addAll(reservedRange);
+    }
+    if (reservedName != null) {
+      _result.reservedName.addAll(reservedName);
+    }
+    return _result;
+  }
   factory DescriptorProto.fromBuffer($core.List<$core.int> i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
@@ -421,8 +571,8 @@ class DescriptorProto extends $pb.GeneratedMessage {
       'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
       'Will be removed in next major version')
   DescriptorProto copyWith(void Function(DescriptorProto) updates) =>
-      super.copyWith((message) =>
-          updates(message as DescriptorProto)); // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as DescriptorProto))
+          as DescriptorProto; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static DescriptorProto create() => DescriptorProto._();
@@ -485,6 +635,68 @@ class DescriptorProto extends $pb.GeneratedMessage {
   $core.List<$core.String> get reservedName => $_getList(9);
 }
 
+class ExtensionRangeOptions extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      const $core.bool.fromEnvironment('protobuf.omit_message_names')
+          ? ''
+          : 'ExtensionRangeOptions',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'google.protobuf'),
+      createEmptyInstance: create)
+    ..pc<UninterpretedOption>(
+        999,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'uninterpretedOption',
+        $pb.PbFieldType.PM,
+        subBuilder: UninterpretedOption.create)
+    ..hasExtensions = true;
+
+  ExtensionRangeOptions._() : super();
+  factory ExtensionRangeOptions({
+    $core.Iterable<UninterpretedOption> uninterpretedOption,
+  }) {
+    final _result = create();
+    if (uninterpretedOption != null) {
+      _result.uninterpretedOption.addAll(uninterpretedOption);
+    }
+    return _result;
+  }
+  factory ExtensionRangeOptions.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory ExtensionRangeOptions.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  ExtensionRangeOptions clone() =>
+      ExtensionRangeOptions()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  ExtensionRangeOptions copyWith(
+          void Function(ExtensionRangeOptions) updates) =>
+      super.copyWith((message) => updates(message as ExtensionRangeOptions))
+          as ExtensionRangeOptions; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ExtensionRangeOptions create() => ExtensionRangeOptions._();
+  ExtensionRangeOptions createEmptyInstance() => create();
+  static $pb.PbList<ExtensionRangeOptions> createRepeated() =>
+      $pb.PbList<ExtensionRangeOptions>();
+  @$core.pragma('dart2js:noInline')
+  static ExtensionRangeOptions getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<ExtensionRangeOptions>(create);
+  static ExtensionRangeOptions _defaultInstance;
+
+  @$pb.TagNumber(999)
+  $core.List<UninterpretedOption> get uninterpretedOption => $_getList(0);
+}
+
 class FieldDescriptorProto extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FieldDescriptorProto',
       package: const $pb.PackageName(
@@ -522,10 +734,59 @@ class FieldDescriptorProto extends $pb.GeneratedMessage {
     ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'defaultValue')
     ..aOM<FieldOptions>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'options', subBuilder: FieldOptions.create)
     ..a<$core.int>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'oneofIndex', $pb.PbFieldType.O3)
-    ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'jsonName');
+    ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'jsonName')
+    ..aOB(17, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'proto3Optional');
 
   FieldDescriptorProto._() : super();
-  factory FieldDescriptorProto() => create();
+  factory FieldDescriptorProto({
+    $core.String name,
+    $core.String extendee,
+    $core.int number,
+    FieldDescriptorProto_Label label,
+    FieldDescriptorProto_Type type,
+    $core.String typeName,
+    $core.String defaultValue,
+    FieldOptions options,
+    $core.int oneofIndex,
+    $core.String jsonName,
+    $core.bool proto3Optional,
+  }) {
+    final _result = create();
+    if (name != null) {
+      _result.name = name;
+    }
+    if (extendee != null) {
+      _result.extendee = extendee;
+    }
+    if (number != null) {
+      _result.number = number;
+    }
+    if (label != null) {
+      _result.label = label;
+    }
+    if (type != null) {
+      _result.type = type;
+    }
+    if (typeName != null) {
+      _result.typeName = typeName;
+    }
+    if (defaultValue != null) {
+      _result.defaultValue = defaultValue;
+    }
+    if (options != null) {
+      _result.options = options;
+    }
+    if (oneofIndex != null) {
+      _result.oneofIndex = oneofIndex;
+    }
+    if (jsonName != null) {
+      _result.jsonName = jsonName;
+    }
+    if (proto3Optional != null) {
+      _result.proto3Optional = proto3Optional;
+    }
+    return _result;
+  }
   factory FieldDescriptorProto.fromBuffer($core.List<$core.int> i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
@@ -541,8 +802,8 @@ class FieldDescriptorProto extends $pb.GeneratedMessage {
       'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
       'Will be removed in next major version')
   FieldDescriptorProto copyWith(void Function(FieldDescriptorProto) updates) =>
-      super.copyWith((message) => updates(
-          message as FieldDescriptorProto)); // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as FieldDescriptorProto))
+          as FieldDescriptorProto; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static FieldDescriptorProto create() => FieldDescriptorProto._();
@@ -675,6 +936,18 @@ class FieldDescriptorProto extends $pb.GeneratedMessage {
   $core.bool hasJsonName() => $_has(9);
   @$pb.TagNumber(10)
   void clearJsonName() => clearField(10);
+
+  @$pb.TagNumber(17)
+  $core.bool get proto3Optional => $_getBF(10);
+  @$pb.TagNumber(17)
+  set proto3Optional($core.bool v) {
+    $_setBool(10, v);
+  }
+
+  @$pb.TagNumber(17)
+  $core.bool hasProto3Optional() => $_has(10);
+  @$pb.TagNumber(17)
+  void clearProto3Optional() => clearField(17);
 }
 
 class OneofDescriptorProto extends $pb.GeneratedMessage {
@@ -700,7 +973,19 @@ class OneofDescriptorProto extends $pb.GeneratedMessage {
         subBuilder: OneofOptions.create);
 
   OneofDescriptorProto._() : super();
-  factory OneofDescriptorProto() => create();
+  factory OneofDescriptorProto({
+    $core.String name,
+    OneofOptions options,
+  }) {
+    final _result = create();
+    if (name != null) {
+      _result.name = name;
+    }
+    if (options != null) {
+      _result.options = options;
+    }
+    return _result;
+  }
   factory OneofDescriptorProto.fromBuffer($core.List<$core.int> i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
@@ -716,8 +1001,8 @@ class OneofDescriptorProto extends $pb.GeneratedMessage {
       'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
       'Will be removed in next major version')
   OneofDescriptorProto copyWith(void Function(OneofDescriptorProto) updates) =>
-      super.copyWith((message) => updates(
-          message as OneofDescriptorProto)); // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as OneofDescriptorProto))
+          as OneofDescriptorProto; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static OneofDescriptorProto create() => OneofDescriptorProto._();
@@ -756,11 +1041,104 @@ class OneofDescriptorProto extends $pb.GeneratedMessage {
   OneofOptions ensureOptions() => $_ensure(1);
 }
 
-class EnumDescriptorProto extends $pb.GeneratedMessage {
+class EnumDescriptorProto_EnumReservedRange extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
       const $core.bool.fromEnvironment('protobuf.omit_message_names')
           ? ''
-          : 'EnumDescriptorProto',
+          : 'EnumDescriptorProto.EnumReservedRange',
+      package: const $pb.PackageName(
+          const $core.bool.fromEnvironment('protobuf.omit_message_names')
+              ? ''
+              : 'google.protobuf'),
+      createEmptyInstance: create)
+    ..a<$core.int>(
+        1,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'start',
+        $pb.PbFieldType.O3)
+    ..a<$core.int>(
+        2,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names')
+            ? ''
+            : 'end',
+        $pb.PbFieldType.O3)
+    ..hasRequiredFields = false;
+
+  EnumDescriptorProto_EnumReservedRange._() : super();
+  factory EnumDescriptorProto_EnumReservedRange({
+    $core.int start,
+    $core.int end,
+  }) {
+    final _result = create();
+    if (start != null) {
+      _result.start = start;
+    }
+    if (end != null) {
+      _result.end = end;
+    }
+    return _result;
+  }
+  factory EnumDescriptorProto_EnumReservedRange.fromBuffer(
+          $core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory EnumDescriptorProto_EnumReservedRange.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  EnumDescriptorProto_EnumReservedRange clone() =>
+      EnumDescriptorProto_EnumReservedRange()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  EnumDescriptorProto_EnumReservedRange copyWith(
+          void Function(EnumDescriptorProto_EnumReservedRange) updates) =>
+      super.copyWith((message) =>
+              updates(message as EnumDescriptorProto_EnumReservedRange))
+          as EnumDescriptorProto_EnumReservedRange; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static EnumDescriptorProto_EnumReservedRange create() =>
+      EnumDescriptorProto_EnumReservedRange._();
+  EnumDescriptorProto_EnumReservedRange createEmptyInstance() => create();
+  static $pb.PbList<EnumDescriptorProto_EnumReservedRange> createRepeated() =>
+      $pb.PbList<EnumDescriptorProto_EnumReservedRange>();
+  @$core.pragma('dart2js:noInline')
+  static EnumDescriptorProto_EnumReservedRange getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
+          EnumDescriptorProto_EnumReservedRange>(create);
+  static EnumDescriptorProto_EnumReservedRange _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get start => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set start($core.int v) {
+    $_setSignedInt32(0, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasStart() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearStart() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get end => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set end($core.int v) {
+    $_setSignedInt32(1, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasEnd() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearEnd() => clearField(2);
+}
+
+class EnumDescriptorProto extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'EnumDescriptorProto',
       package: const $pb.PackageName(
           const $core.bool.fromEnvironment('protobuf.omit_message_names')
               ? ''
@@ -774,12 +1152,42 @@ class EnumDescriptorProto extends $pb.GeneratedMessage {
     ..pc<EnumValueDescriptorProto>(
         2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'value', $pb.PbFieldType.PM,
         subBuilder: EnumValueDescriptorProto.create)
-    ..aOM<EnumOptions>(3,
-        const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'options',
-        subBuilder: EnumOptions.create);
+    ..aOM<EnumOptions>(
+        3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'options',
+        subBuilder: EnumOptions.create)
+    ..pc<EnumDescriptorProto_EnumReservedRange>(
+        4,
+        const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'reservedRange',
+        $pb.PbFieldType.PM,
+        subBuilder: EnumDescriptorProto_EnumReservedRange.create)
+    ..pPS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'reservedName');
 
   EnumDescriptorProto._() : super();
-  factory EnumDescriptorProto() => create();
+  factory EnumDescriptorProto({
+    $core.String name,
+    $core.Iterable<EnumValueDescriptorProto> value,
+    EnumOptions options,
+    $core.Iterable<EnumDescriptorProto_EnumReservedRange> reservedRange,
+    $core.Iterable<$core.String> reservedName,
+  }) {
+    final _result = create();
+    if (name != null) {
+      _result.name = name;
+    }
+    if (value != null) {
+      _result.value.addAll(value);
+    }
+    if (options != null) {
+      _result.options = options;
+    }
+    if (reservedRange != null) {
+      _result.reservedRange.addAll(reservedRange);
+    }
+    if (reservedName != null) {
+      _result.reservedName.addAll(reservedName);
+    }
+    return _result;
+  }
   factory EnumDescriptorProto.fromBuffer($core.List<$core.int> i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
@@ -794,8 +1202,8 @@ class EnumDescriptorProto extends $pb.GeneratedMessage {
       'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
       'Will be removed in next major version')
   EnumDescriptorProto copyWith(void Function(EnumDescriptorProto) updates) =>
-      super.copyWith((message) => updates(
-          message as EnumDescriptorProto)); // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as EnumDescriptorProto))
+          as EnumDescriptorProto; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static EnumDescriptorProto create() => EnumDescriptorProto._();
@@ -835,6 +1243,13 @@ class EnumDescriptorProto extends $pb.GeneratedMessage {
   void clearOptions() => clearField(3);
   @$pb.TagNumber(3)
   EnumOptions ensureOptions() => $_ensure(2);
+
+  @$pb.TagNumber(4)
+  $core.List<EnumDescriptorProto_EnumReservedRange> get reservedRange =>
+      $_getList(3);
+
+  @$pb.TagNumber(5)
+  $core.List<$core.String> get reservedName => $_getList(4);
 }
 
 class EnumValueDescriptorProto extends $pb.GeneratedMessage {
@@ -863,7 +1278,23 @@ class EnumValueDescriptorProto extends $pb.GeneratedMessage {
         subBuilder: EnumValueOptions.create);
 
   EnumValueDescriptorProto._() : super();
-  factory EnumValueDescriptorProto() => create();
+  factory EnumValueDescriptorProto({
+    $core.String name,
+    $core.int number,
+    EnumValueOptions options,
+  }) {
+    final _result = create();
+    if (name != null) {
+      _result.name = name;
+    }
+    if (number != null) {
+      _result.number = number;
+    }
+    if (options != null) {
+      _result.options = options;
+    }
+    return _result;
+  }
   factory EnumValueDescriptorProto.fromBuffer($core.List<$core.int> i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
@@ -880,8 +1311,8 @@ class EnumValueDescriptorProto extends $pb.GeneratedMessage {
       'Will be removed in next major version')
   EnumValueDescriptorProto copyWith(
           void Function(EnumValueDescriptorProto) updates) =>
-      super.copyWith((message) => updates(message
-          as EnumValueDescriptorProto)); // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as EnumValueDescriptorProto))
+          as EnumValueDescriptorProto; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static EnumValueDescriptorProto create() => EnumValueDescriptorProto._();
@@ -955,7 +1386,23 @@ class ServiceDescriptorProto extends $pb.GeneratedMessage {
         subBuilder: ServiceOptions.create);
 
   ServiceDescriptorProto._() : super();
-  factory ServiceDescriptorProto() => create();
+  factory ServiceDescriptorProto({
+    $core.String name,
+    $core.Iterable<MethodDescriptorProto> method,
+    ServiceOptions options,
+  }) {
+    final _result = create();
+    if (name != null) {
+      _result.name = name;
+    }
+    if (method != null) {
+      _result.method.addAll(method);
+    }
+    if (options != null) {
+      _result.options = options;
+    }
+    return _result;
+  }
   factory ServiceDescriptorProto.fromBuffer($core.List<$core.int> i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
@@ -972,8 +1419,8 @@ class ServiceDescriptorProto extends $pb.GeneratedMessage {
       'Will be removed in next major version')
   ServiceDescriptorProto copyWith(
           void Function(ServiceDescriptorProto) updates) =>
-      super.copyWith((message) => updates(
-          message as ServiceDescriptorProto)); // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as ServiceDescriptorProto))
+          as ServiceDescriptorProto; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static ServiceDescriptorProto create() => ServiceDescriptorProto._();
@@ -1047,7 +1494,35 @@ class MethodDescriptorProto extends $pb.GeneratedMessage {
     ..aOB(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'serverStreaming');
 
   MethodDescriptorProto._() : super();
-  factory MethodDescriptorProto() => create();
+  factory MethodDescriptorProto({
+    $core.String name,
+    $core.String inputType,
+    $core.String outputType,
+    MethodOptions options,
+    $core.bool clientStreaming,
+    $core.bool serverStreaming,
+  }) {
+    final _result = create();
+    if (name != null) {
+      _result.name = name;
+    }
+    if (inputType != null) {
+      _result.inputType = inputType;
+    }
+    if (outputType != null) {
+      _result.outputType = outputType;
+    }
+    if (options != null) {
+      _result.options = options;
+    }
+    if (clientStreaming != null) {
+      _result.clientStreaming = clientStreaming;
+    }
+    if (serverStreaming != null) {
+      _result.serverStreaming = serverStreaming;
+    }
+    return _result;
+  }
   factory MethodDescriptorProto.fromBuffer($core.List<$core.int> i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
@@ -1064,8 +1539,8 @@ class MethodDescriptorProto extends $pb.GeneratedMessage {
       'Will be removed in next major version')
   MethodDescriptorProto copyWith(
           void Function(MethodDescriptorProto) updates) =>
-      super.copyWith((message) => updates(
-          message as MethodDescriptorProto)); // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as MethodDescriptorProto))
+          as MethodDescriptorProto; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MethodDescriptorProto create() => MethodDescriptorProto._();
@@ -1189,17 +1664,110 @@ class FileOptions extends $pb.GeneratedMessage {
     ..aOB(20, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'javaGenerateEqualsAndHash')
     ..aOB(23, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'deprecated')
     ..aOB(27, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'javaStringCheckUtf8')
-    ..aOB(31, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ccEnableArenas')
+    ..a<$core.bool>(31, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ccEnableArenas', $pb.PbFieldType.OB, defaultOrMaker: true)
     ..aOS(36, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'objcClassPrefix')
     ..aOS(37, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'csharpNamespace')
     ..aOS(39, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'swiftPrefix')
     ..aOS(40, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'phpClassPrefix')
     ..aOS(41, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'phpNamespace')
+    ..aOB(42, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'phpGenericServices')
+    ..aOS(44, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'phpMetadataNamespace')
+    ..aOS(45, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'rubyPackage')
     ..pc<UninterpretedOption>(999, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'uninterpretedOption', $pb.PbFieldType.PM, subBuilder: UninterpretedOption.create)
     ..hasExtensions = true;
 
   FileOptions._() : super();
-  factory FileOptions() => create();
+  factory FileOptions({
+    $core.String javaPackage,
+    $core.String javaOuterClassname,
+    FileOptions_OptimizeMode optimizeFor,
+    $core.bool javaMultipleFiles,
+    $core.String goPackage,
+    $core.bool ccGenericServices,
+    $core.bool javaGenericServices,
+    $core.bool pyGenericServices,
+    @$core.Deprecated('This field is deprecated.')
+        $core.bool javaGenerateEqualsAndHash,
+    $core.bool deprecated,
+    $core.bool javaStringCheckUtf8,
+    $core.bool ccEnableArenas,
+    $core.String objcClassPrefix,
+    $core.String csharpNamespace,
+    $core.String swiftPrefix,
+    $core.String phpClassPrefix,
+    $core.String phpNamespace,
+    $core.bool phpGenericServices,
+    $core.String phpMetadataNamespace,
+    $core.String rubyPackage,
+    $core.Iterable<UninterpretedOption> uninterpretedOption,
+  }) {
+    final _result = create();
+    if (javaPackage != null) {
+      _result.javaPackage = javaPackage;
+    }
+    if (javaOuterClassname != null) {
+      _result.javaOuterClassname = javaOuterClassname;
+    }
+    if (optimizeFor != null) {
+      _result.optimizeFor = optimizeFor;
+    }
+    if (javaMultipleFiles != null) {
+      _result.javaMultipleFiles = javaMultipleFiles;
+    }
+    if (goPackage != null) {
+      _result.goPackage = goPackage;
+    }
+    if (ccGenericServices != null) {
+      _result.ccGenericServices = ccGenericServices;
+    }
+    if (javaGenericServices != null) {
+      _result.javaGenericServices = javaGenericServices;
+    }
+    if (pyGenericServices != null) {
+      _result.pyGenericServices = pyGenericServices;
+    }
+    if (javaGenerateEqualsAndHash != null) {
+      // ignore: deprecated_member_use_from_same_package
+      _result.javaGenerateEqualsAndHash = javaGenerateEqualsAndHash;
+    }
+    if (deprecated != null) {
+      _result.deprecated = deprecated;
+    }
+    if (javaStringCheckUtf8 != null) {
+      _result.javaStringCheckUtf8 = javaStringCheckUtf8;
+    }
+    if (ccEnableArenas != null) {
+      _result.ccEnableArenas = ccEnableArenas;
+    }
+    if (objcClassPrefix != null) {
+      _result.objcClassPrefix = objcClassPrefix;
+    }
+    if (csharpNamespace != null) {
+      _result.csharpNamespace = csharpNamespace;
+    }
+    if (swiftPrefix != null) {
+      _result.swiftPrefix = swiftPrefix;
+    }
+    if (phpClassPrefix != null) {
+      _result.phpClassPrefix = phpClassPrefix;
+    }
+    if (phpNamespace != null) {
+      _result.phpNamespace = phpNamespace;
+    }
+    if (phpGenericServices != null) {
+      _result.phpGenericServices = phpGenericServices;
+    }
+    if (phpMetadataNamespace != null) {
+      _result.phpMetadataNamespace = phpMetadataNamespace;
+    }
+    if (rubyPackage != null) {
+      _result.rubyPackage = rubyPackage;
+    }
+    if (uninterpretedOption != null) {
+      _result.uninterpretedOption.addAll(uninterpretedOption);
+    }
+    return _result;
+  }
   factory FileOptions.fromBuffer($core.List<$core.int> i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
@@ -1214,8 +1782,8 @@ class FileOptions extends $pb.GeneratedMessage {
       'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
       'Will be removed in next major version')
   FileOptions copyWith(void Function(FileOptions) updates) =>
-      super.copyWith((message) =>
-          updates(message as FileOptions)); // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as FileOptions))
+          as FileOptions; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static FileOptions create() => FileOptions._();
@@ -1363,7 +1931,7 @@ class FileOptions extends $pb.GeneratedMessage {
   void clearJavaStringCheckUtf8() => clearField(27);
 
   @$pb.TagNumber(31)
-  $core.bool get ccEnableArenas => $_getBF(11);
+  $core.bool get ccEnableArenas => $_getB(11, true);
   @$pb.TagNumber(31)
   set ccEnableArenas($core.bool v) {
     $_setBool(11, v);
@@ -1434,8 +2002,44 @@ class FileOptions extends $pb.GeneratedMessage {
   @$pb.TagNumber(41)
   void clearPhpNamespace() => clearField(41);
 
+  @$pb.TagNumber(42)
+  $core.bool get phpGenericServices => $_getBF(17);
+  @$pb.TagNumber(42)
+  set phpGenericServices($core.bool v) {
+    $_setBool(17, v);
+  }
+
+  @$pb.TagNumber(42)
+  $core.bool hasPhpGenericServices() => $_has(17);
+  @$pb.TagNumber(42)
+  void clearPhpGenericServices() => clearField(42);
+
+  @$pb.TagNumber(44)
+  $core.String get phpMetadataNamespace => $_getSZ(18);
+  @$pb.TagNumber(44)
+  set phpMetadataNamespace($core.String v) {
+    $_setString(18, v);
+  }
+
+  @$pb.TagNumber(44)
+  $core.bool hasPhpMetadataNamespace() => $_has(18);
+  @$pb.TagNumber(44)
+  void clearPhpMetadataNamespace() => clearField(44);
+
+  @$pb.TagNumber(45)
+  $core.String get rubyPackage => $_getSZ(19);
+  @$pb.TagNumber(45)
+  set rubyPackage($core.String v) {
+    $_setString(19, v);
+  }
+
+  @$pb.TagNumber(45)
+  $core.bool hasRubyPackage() => $_has(19);
+  @$pb.TagNumber(45)
+  void clearRubyPackage() => clearField(45);
+
   @$pb.TagNumber(999)
-  $core.List<UninterpretedOption> get uninterpretedOption => $_getList(17);
+  $core.List<UninterpretedOption> get uninterpretedOption => $_getList(20);
 }
 
 class MessageOptions extends $pb.GeneratedMessage {
@@ -1469,7 +2073,31 @@ class MessageOptions extends $pb.GeneratedMessage {
     ..hasExtensions = true;
 
   MessageOptions._() : super();
-  factory MessageOptions() => create();
+  factory MessageOptions({
+    $core.bool messageSetWireFormat,
+    $core.bool noStandardDescriptorAccessor,
+    $core.bool deprecated,
+    $core.bool mapEntry,
+    $core.Iterable<UninterpretedOption> uninterpretedOption,
+  }) {
+    final _result = create();
+    if (messageSetWireFormat != null) {
+      _result.messageSetWireFormat = messageSetWireFormat;
+    }
+    if (noStandardDescriptorAccessor != null) {
+      _result.noStandardDescriptorAccessor = noStandardDescriptorAccessor;
+    }
+    if (deprecated != null) {
+      _result.deprecated = deprecated;
+    }
+    if (mapEntry != null) {
+      _result.mapEntry = mapEntry;
+    }
+    if (uninterpretedOption != null) {
+      _result.uninterpretedOption.addAll(uninterpretedOption);
+    }
+    return _result;
+  }
   factory MessageOptions.fromBuffer($core.List<$core.int> i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
@@ -1484,8 +2112,8 @@ class MessageOptions extends $pb.GeneratedMessage {
       'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
       'Will be removed in next major version')
   MessageOptions copyWith(void Function(MessageOptions) updates) =>
-      super.copyWith((message) =>
-          updates(message as MessageOptions)); // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as MessageOptions))
+          as MessageOptions; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MessageOptions create() => MessageOptions._();
@@ -1578,7 +2206,39 @@ class FieldOptions extends $pb.GeneratedMessage {
     ..hasExtensions = true;
 
   FieldOptions._() : super();
-  factory FieldOptions() => create();
+  factory FieldOptions({
+    FieldOptions_CType ctype,
+    $core.bool packed,
+    $core.bool deprecated,
+    $core.bool lazy,
+    FieldOptions_JSType jstype,
+    $core.bool weak,
+    $core.Iterable<UninterpretedOption> uninterpretedOption,
+  }) {
+    final _result = create();
+    if (ctype != null) {
+      _result.ctype = ctype;
+    }
+    if (packed != null) {
+      _result.packed = packed;
+    }
+    if (deprecated != null) {
+      _result.deprecated = deprecated;
+    }
+    if (lazy != null) {
+      _result.lazy = lazy;
+    }
+    if (jstype != null) {
+      _result.jstype = jstype;
+    }
+    if (weak != null) {
+      _result.weak = weak;
+    }
+    if (uninterpretedOption != null) {
+      _result.uninterpretedOption.addAll(uninterpretedOption);
+    }
+    return _result;
+  }
   factory FieldOptions.fromBuffer($core.List<$core.int> i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
@@ -1593,8 +2253,8 @@ class FieldOptions extends $pb.GeneratedMessage {
       'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
       'Will be removed in next major version')
   FieldOptions copyWith(void Function(FieldOptions) updates) =>
-      super.copyWith((message) =>
-          updates(message as FieldOptions)); // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as FieldOptions))
+          as FieldOptions; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static FieldOptions create() => FieldOptions._();
@@ -1702,7 +2362,15 @@ class OneofOptions extends $pb.GeneratedMessage {
     ..hasExtensions = true;
 
   OneofOptions._() : super();
-  factory OneofOptions() => create();
+  factory OneofOptions({
+    $core.Iterable<UninterpretedOption> uninterpretedOption,
+  }) {
+    final _result = create();
+    if (uninterpretedOption != null) {
+      _result.uninterpretedOption.addAll(uninterpretedOption);
+    }
+    return _result;
+  }
   factory OneofOptions.fromBuffer($core.List<$core.int> i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
@@ -1717,8 +2385,8 @@ class OneofOptions extends $pb.GeneratedMessage {
       'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
       'Will be removed in next major version')
   OneofOptions copyWith(void Function(OneofOptions) updates) =>
-      super.copyWith((message) =>
-          updates(message as OneofOptions)); // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as OneofOptions))
+          as OneofOptions; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static OneofOptions create() => OneofOptions._();
@@ -1764,7 +2432,23 @@ class EnumOptions extends $pb.GeneratedMessage {
     ..hasExtensions = true;
 
   EnumOptions._() : super();
-  factory EnumOptions() => create();
+  factory EnumOptions({
+    $core.bool allowAlias,
+    $core.bool deprecated,
+    $core.Iterable<UninterpretedOption> uninterpretedOption,
+  }) {
+    final _result = create();
+    if (allowAlias != null) {
+      _result.allowAlias = allowAlias;
+    }
+    if (deprecated != null) {
+      _result.deprecated = deprecated;
+    }
+    if (uninterpretedOption != null) {
+      _result.uninterpretedOption.addAll(uninterpretedOption);
+    }
+    return _result;
+  }
   factory EnumOptions.fromBuffer($core.List<$core.int> i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
@@ -1779,8 +2463,8 @@ class EnumOptions extends $pb.GeneratedMessage {
       'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
       'Will be removed in next major version')
   EnumOptions copyWith(void Function(EnumOptions) updates) =>
-      super.copyWith((message) =>
-          updates(message as EnumOptions)); // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as EnumOptions))
+          as EnumOptions; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static EnumOptions create() => EnumOptions._();
@@ -1844,7 +2528,19 @@ class EnumValueOptions extends $pb.GeneratedMessage {
     ..hasExtensions = true;
 
   EnumValueOptions._() : super();
-  factory EnumValueOptions() => create();
+  factory EnumValueOptions({
+    $core.bool deprecated,
+    $core.Iterable<UninterpretedOption> uninterpretedOption,
+  }) {
+    final _result = create();
+    if (deprecated != null) {
+      _result.deprecated = deprecated;
+    }
+    if (uninterpretedOption != null) {
+      _result.uninterpretedOption.addAll(uninterpretedOption);
+    }
+    return _result;
+  }
   factory EnumValueOptions.fromBuffer($core.List<$core.int> i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
@@ -1859,8 +2555,8 @@ class EnumValueOptions extends $pb.GeneratedMessage {
       'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
       'Will be removed in next major version')
   EnumValueOptions copyWith(void Function(EnumValueOptions) updates) =>
-      super.copyWith((message) => updates(
-          message as EnumValueOptions)); // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as EnumValueOptions))
+          as EnumValueOptions; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static EnumValueOptions create() => EnumValueOptions._();
@@ -1913,7 +2609,19 @@ class ServiceOptions extends $pb.GeneratedMessage {
     ..hasExtensions = true;
 
   ServiceOptions._() : super();
-  factory ServiceOptions() => create();
+  factory ServiceOptions({
+    $core.bool deprecated,
+    $core.Iterable<UninterpretedOption> uninterpretedOption,
+  }) {
+    final _result = create();
+    if (deprecated != null) {
+      _result.deprecated = deprecated;
+    }
+    if (uninterpretedOption != null) {
+      _result.uninterpretedOption.addAll(uninterpretedOption);
+    }
+    return _result;
+  }
   factory ServiceOptions.fromBuffer($core.List<$core.int> i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
@@ -1928,8 +2636,8 @@ class ServiceOptions extends $pb.GeneratedMessage {
       'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
       'Will be removed in next major version')
   ServiceOptions copyWith(void Function(ServiceOptions) updates) =>
-      super.copyWith((message) =>
-          updates(message as ServiceOptions)); // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as ServiceOptions))
+          as ServiceOptions; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static ServiceOptions create() => ServiceOptions._();
@@ -1985,7 +2693,23 @@ class MethodOptions extends $pb.GeneratedMessage {
         ..hasExtensions = true;
 
   MethodOptions._() : super();
-  factory MethodOptions() => create();
+  factory MethodOptions({
+    $core.bool deprecated,
+    MethodOptions_IdempotencyLevel idempotencyLevel,
+    $core.Iterable<UninterpretedOption> uninterpretedOption,
+  }) {
+    final _result = create();
+    if (deprecated != null) {
+      _result.deprecated = deprecated;
+    }
+    if (idempotencyLevel != null) {
+      _result.idempotencyLevel = idempotencyLevel;
+    }
+    if (uninterpretedOption != null) {
+      _result.uninterpretedOption.addAll(uninterpretedOption);
+    }
+    return _result;
+  }
   factory MethodOptions.fromBuffer($core.List<$core.int> i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
@@ -2000,8 +2724,8 @@ class MethodOptions extends $pb.GeneratedMessage {
       'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
       'Will be removed in next major version')
   MethodOptions copyWith(void Function(MethodOptions) updates) =>
-      super.copyWith((message) =>
-          updates(message as MethodOptions)); // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as MethodOptions))
+          as MethodOptions; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static MethodOptions create() => MethodOptions._();
@@ -2064,7 +2788,19 @@ class UninterpretedOption_NamePart extends $pb.GeneratedMessage {
         $pb.PbFieldType.QB);
 
   UninterpretedOption_NamePart._() : super();
-  factory UninterpretedOption_NamePart() => create();
+  factory UninterpretedOption_NamePart({
+    $core.String namePart,
+    $core.bool isExtension,
+  }) {
+    final _result = create();
+    if (namePart != null) {
+      _result.namePart = namePart;
+    }
+    if (isExtension != null) {
+      _result.isExtension = isExtension;
+    }
+    return _result;
+  }
   factory UninterpretedOption_NamePart.fromBuffer($core.List<$core.int> i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
@@ -2081,8 +2817,9 @@ class UninterpretedOption_NamePart extends $pb.GeneratedMessage {
       'Will be removed in next major version')
   UninterpretedOption_NamePart copyWith(
           void Function(UninterpretedOption_NamePart) updates) =>
-      super.copyWith((message) => updates(message
-          as UninterpretedOption_NamePart)); // ignore: deprecated_member_use
+      super.copyWith(
+              (message) => updates(message as UninterpretedOption_NamePart))
+          as UninterpretedOption_NamePart; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static UninterpretedOption_NamePart create() =>
@@ -2145,7 +2882,39 @@ class UninterpretedOption extends $pb.GeneratedMessage {
     ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'aggregateValue');
 
   UninterpretedOption._() : super();
-  factory UninterpretedOption() => create();
+  factory UninterpretedOption({
+    $core.Iterable<UninterpretedOption_NamePart> name,
+    $core.String identifierValue,
+    $fixnum.Int64 positiveIntValue,
+    $fixnum.Int64 negativeIntValue,
+    $core.double doubleValue,
+    $core.List<$core.int> stringValue,
+    $core.String aggregateValue,
+  }) {
+    final _result = create();
+    if (name != null) {
+      _result.name.addAll(name);
+    }
+    if (identifierValue != null) {
+      _result.identifierValue = identifierValue;
+    }
+    if (positiveIntValue != null) {
+      _result.positiveIntValue = positiveIntValue;
+    }
+    if (negativeIntValue != null) {
+      _result.negativeIntValue = negativeIntValue;
+    }
+    if (doubleValue != null) {
+      _result.doubleValue = doubleValue;
+    }
+    if (stringValue != null) {
+      _result.stringValue = stringValue;
+    }
+    if (aggregateValue != null) {
+      _result.aggregateValue = aggregateValue;
+    }
+    return _result;
+  }
   factory UninterpretedOption.fromBuffer($core.List<$core.int> i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
@@ -2160,8 +2929,8 @@ class UninterpretedOption extends $pb.GeneratedMessage {
       'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
       'Will be removed in next major version')
   UninterpretedOption copyWith(void Function(UninterpretedOption) updates) =>
-      super.copyWith((message) => updates(
-          message as UninterpretedOption)); // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as UninterpretedOption))
+          as UninterpretedOption; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static UninterpretedOption create() => UninterpretedOption._();
@@ -2278,7 +3047,31 @@ class SourceCodeInfo_Location extends $pb.GeneratedMessage {
     ..hasRequiredFields = false;
 
   SourceCodeInfo_Location._() : super();
-  factory SourceCodeInfo_Location() => create();
+  factory SourceCodeInfo_Location({
+    $core.Iterable<$core.int> path,
+    $core.Iterable<$core.int> span,
+    $core.String leadingComments,
+    $core.String trailingComments,
+    $core.Iterable<$core.String> leadingDetachedComments,
+  }) {
+    final _result = create();
+    if (path != null) {
+      _result.path.addAll(path);
+    }
+    if (span != null) {
+      _result.span.addAll(span);
+    }
+    if (leadingComments != null) {
+      _result.leadingComments = leadingComments;
+    }
+    if (trailingComments != null) {
+      _result.trailingComments = trailingComments;
+    }
+    if (leadingDetachedComments != null) {
+      _result.leadingDetachedComments.addAll(leadingDetachedComments);
+    }
+    return _result;
+  }
   factory SourceCodeInfo_Location.fromBuffer($core.List<$core.int> i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
@@ -2295,8 +3088,8 @@ class SourceCodeInfo_Location extends $pb.GeneratedMessage {
       'Will be removed in next major version')
   SourceCodeInfo_Location copyWith(
           void Function(SourceCodeInfo_Location) updates) =>
-      super.copyWith((message) => updates(
-          message as SourceCodeInfo_Location)); // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as SourceCodeInfo_Location))
+          as SourceCodeInfo_Location; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static SourceCodeInfo_Location create() => SourceCodeInfo_Location._();
@@ -2362,7 +3155,15 @@ class SourceCodeInfo extends $pb.GeneratedMessage {
     ..hasRequiredFields = false;
 
   SourceCodeInfo._() : super();
-  factory SourceCodeInfo() => create();
+  factory SourceCodeInfo({
+    $core.Iterable<SourceCodeInfo_Location> location,
+  }) {
+    final _result = create();
+    if (location != null) {
+      _result.location.addAll(location);
+    }
+    return _result;
+  }
   factory SourceCodeInfo.fromBuffer($core.List<$core.int> i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
@@ -2377,8 +3178,8 @@ class SourceCodeInfo extends $pb.GeneratedMessage {
       'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
       'Will be removed in next major version')
   SourceCodeInfo copyWith(void Function(SourceCodeInfo) updates) =>
-      super.copyWith((message) =>
-          updates(message as SourceCodeInfo)); // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as SourceCodeInfo))
+          as SourceCodeInfo; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static SourceCodeInfo create() => SourceCodeInfo._();
@@ -2423,7 +3224,27 @@ class GeneratedCodeInfo_Annotation extends $pb.GeneratedMessage {
     ..hasRequiredFields = false;
 
   GeneratedCodeInfo_Annotation._() : super();
-  factory GeneratedCodeInfo_Annotation() => create();
+  factory GeneratedCodeInfo_Annotation({
+    $core.Iterable<$core.int> path,
+    $core.String sourceFile,
+    $core.int begin,
+    $core.int end,
+  }) {
+    final _result = create();
+    if (path != null) {
+      _result.path.addAll(path);
+    }
+    if (sourceFile != null) {
+      _result.sourceFile = sourceFile;
+    }
+    if (begin != null) {
+      _result.begin = begin;
+    }
+    if (end != null) {
+      _result.end = end;
+    }
+    return _result;
+  }
   factory GeneratedCodeInfo_Annotation.fromBuffer($core.List<$core.int> i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
@@ -2440,8 +3261,9 @@ class GeneratedCodeInfo_Annotation extends $pb.GeneratedMessage {
       'Will be removed in next major version')
   GeneratedCodeInfo_Annotation copyWith(
           void Function(GeneratedCodeInfo_Annotation) updates) =>
-      super.copyWith((message) => updates(message
-          as GeneratedCodeInfo_Annotation)); // ignore: deprecated_member_use
+      super.copyWith(
+              (message) => updates(message as GeneratedCodeInfo_Annotation))
+          as GeneratedCodeInfo_Annotation; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static GeneratedCodeInfo_Annotation create() =>
@@ -2514,7 +3336,15 @@ class GeneratedCodeInfo extends $pb.GeneratedMessage {
     ..hasRequiredFields = false;
 
   GeneratedCodeInfo._() : super();
-  factory GeneratedCodeInfo() => create();
+  factory GeneratedCodeInfo({
+    $core.Iterable<GeneratedCodeInfo_Annotation> annotation,
+  }) {
+    final _result = create();
+    if (annotation != null) {
+      _result.annotation.addAll(annotation);
+    }
+    return _result;
+  }
   factory GeneratedCodeInfo.fromBuffer($core.List<$core.int> i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
@@ -2529,8 +3359,8 @@ class GeneratedCodeInfo extends $pb.GeneratedMessage {
       'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
       'Will be removed in next major version')
   GeneratedCodeInfo copyWith(void Function(GeneratedCodeInfo) updates) =>
-      super.copyWith((message) => updates(
-          message as GeneratedCodeInfo)); // ignore: deprecated_member_use
+      super.copyWith((message) => updates(message as GeneratedCodeInfo))
+          as GeneratedCodeInfo; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static GeneratedCodeInfo create() => GeneratedCodeInfo._();

@@ -9,13 +9,18 @@ final _formatter = DartFormatter();
 const String _protobufImportPrefix = r'$pb';
 const String _asyncImportPrefix = r'$async';
 const String _coreImportPrefix = r'$core';
+const String _convertImportPrefix = r'$convert';
 const String _fixnumImportPrefix = r'$fixnum';
 const String _grpcImportPrefix = r'$grpc';
 const String _mixinImportPrefix = r'$mixin';
+const String _typedDataImportPrefix = r'$typed_data';
 const String _protobufImport =
     "import 'package:protobuf/protobuf.dart' as $_protobufImportPrefix;";
 const String _asyncImport = "import 'dart:async' as $_asyncImportPrefix;";
 const String _coreImport = "import 'dart:core' as $_coreImportPrefix;";
+const String _typedDataImport =
+    "import 'dart:typed_data' as $_typedDataImportPrefix;";
+const String _convertImport = "import 'dart:convert' as $_convertImportPrefix;";
 const String _grpcImport =
     "import 'package:grpc/service_api.dart' as $_grpcImportPrefix;";
 
@@ -47,7 +52,8 @@ class FileGenerator extends ProtobufContainer {
       return <String, PbMixin>{};
     }
     var dartMixins = <String, DartMixin>{};
-    Imports importedMixins = desc.options.getExtension(Dart_options.imports);
+    final importedMixins =
+        desc.options.getExtension(Dart_options.imports) as Imports;
     for (var mixin in importedMixins.mixins) {
       if (dartMixins.containsKey(mixin.name)) {
         throw mixinError('Duplicate mixin name: "${mixin.name}"');
@@ -149,7 +155,8 @@ class FileGenerator extends ProtobufContainer {
 
     var declaredMixins = _getDeclaredMixins(descriptor);
     var defaultMixinName =
-        descriptor.options?.getExtension(Dart_options.defaultMixin) ?? '';
+        descriptor.options?.getExtension(Dart_options.defaultMixin) as String ??
+            '';
     var defaultMixin =
         declaredMixins[defaultMixinName] ?? findMixin(defaultMixinName);
     if (defaultMixin == null && defaultMixinName.isNotEmpty) {
@@ -206,6 +213,8 @@ class FileGenerator extends ProtobufContainer {
   String get fullName => descriptor.package;
   @override
   FileGenerator get fileGen => this;
+  @override
+  ProtobufContainer get _parent => null;
   @override
   List<int> get fieldPath => [];
 
@@ -406,7 +415,7 @@ class FileGenerator extends ProtobufContainer {
     if (enumCount > 0) {
       // Make sure any other symbols in dart:core don't cause name conflicts
       // with enums that have the same name.
-      out.println("// ignore_for_file: UNDEFINED_SHOWN_NAME,UNUSED_SHOWN_NAME");
+      out.println("// ignore_for_file: UNDEFINED_SHOWN_NAME");
       out.println(_coreImport);
       out.println(_protobufImport);
       out.println();
@@ -437,7 +446,8 @@ class FileGenerator extends ProtobufContainer {
       [OutputConfiguration config = const DefaultOutputConfiguration()]) {
     if (!_linked) throw StateError("not linked");
     var out = makeWriter();
-    _writeHeading(out);
+    _writeHeading(out,
+        extraIgnores: {'deprecated_member_use_from_same_package'});
 
     if (serviceGenerators.isNotEmpty) {
       out.println(_asyncImport);
@@ -508,13 +518,27 @@ class FileGenerator extends ProtobufContainer {
     return _formatter.format(out.toString());
   }
 
+  void writeBinaryDescriptor(IndentingWriter out, String identifierName,
+      String name, GeneratedMessage descriptor) {
+    var descriptorText = base64Encode(descriptor.writeToBuffer());
+    out.println('/// Descriptor for `$name`. Decode as a '
+        '`${descriptor.info_.qualifiedMessageName}`.');
+    out.println('final $_typedDataImportPrefix.Uint8List '
+        '$identifierName = '
+        '$_convertImportPrefix.base64Decode(\'$descriptorText\');');
+  }
+
   /// Returns the contents of the .pbjson.dart file for this .proto file.
   String generateJsonFile(
       [OutputConfiguration config = const DefaultOutputConfiguration()]) {
     if (!_linked) throw StateError("not linked");
     var out = makeWriter();
-    _writeHeading(out);
+    _writeHeading(out,
+        extraIgnores: {'deprecated_member_use_from_same_package'});
 
+    out.println(_coreImport);
+    out.println(_convertImport);
+    out.println(_typedDataImport);
     // Import the .pbjson.dart files we depend on.
     var imports = _findJsonProtosToImport();
     for (var target in imports) {
@@ -524,12 +548,18 @@ class FileGenerator extends ProtobufContainer {
 
     for (var e in enumGenerators) {
       e.generateConstants(out);
+      writeBinaryDescriptor(
+          out, e.binaryDescriptorName, e._descriptor.name, e._descriptor);
     }
     for (var m in messageGenerators) {
       m.generateConstants(out);
+      writeBinaryDescriptor(
+          out, m.binaryDescriptorName, m._descriptor.name, m._descriptor);
     }
     for (var s in serviceGenerators) {
       s.generateConstants(out);
+      writeBinaryDescriptor(
+          out, s.binaryDescriptorName, s._descriptor.name, s._descriptor);
     }
 
     return out.toString();
@@ -553,14 +583,17 @@ class FileGenerator extends ProtobufContainer {
   }
 
   /// Writes the header at the top of the dart file.
-  void _writeHeading(IndentingWriter out) {
+  void _writeHeading(IndentingWriter out,
+      {Set<String> extraIgnores = const <String>{}}) {
+    var extraIgnoresString =
+        extraIgnores.isEmpty ? '' : ',${extraIgnores.join(',')}';
     out.println('''
 ///
 //  Generated code. Do not modify.
 //  source: ${descriptor.name}
 //
-// @dart = 2.3
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
+// @dart = 2.7
+// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields$extraIgnoresString
 ''');
   }
 

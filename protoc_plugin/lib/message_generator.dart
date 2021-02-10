@@ -51,13 +51,16 @@ class MessageGenerator extends ProtobufContainer {
 
   PbMixin mixin;
 
+  @override
   final ProtobufContainer _parent;
   final DescriptorProto _descriptor;
   final List<EnumGenerator> _enumGenerators = <EnumGenerator>[];
   final List<MessageGenerator> _messageGenerators = <MessageGenerator>[];
   final List<ExtensionGenerator> _extensionGenerators = <ExtensionGenerator>[];
-  // Stores the list of fields belonging to each oneof declaration identified
-  // by the index in the containing types's oneof_decl list.
+
+  /// Stores the list of fields belonging to each oneof declaration identified
+  /// by the index in the containing types's oneof_decl list.
+  /// Only contains the 'real' oneofs.
   final List<List<ProtobufField>> _oneofFields;
   List<OneofNames> _oneofNames;
 
@@ -92,7 +95,7 @@ class MessageGenerator extends ProtobufContainer {
             ? descriptor.name
             : '${parent.fullName}.${descriptor.name}',
         _oneofFields =
-            List.generate(descriptor.oneofDecl.length, (int index) => []) {
+            List.generate(countRealOneofs(descriptor), (int index) => []) {
     mixin = _getMixin(declaredMixins, defaultMixin);
     for (var i = 0; i < _descriptor.enumType.length; i++) {
       var e = _descriptor.enumType[i];
@@ -195,7 +198,8 @@ class MessageGenerator extends ProtobufContainer {
     _fieldList = <ProtobufField>[];
     for (var names in members.fieldNames) {
       var field = ProtobufField.message(names, this, ctx);
-      if (field.descriptor.hasOneofIndex()) {
+      if (field.descriptor.hasOneofIndex() &&
+          !field.descriptor.proto3Optional) {
         _oneofFields[field.descriptor.oneofIndex].add(field);
       }
       _fieldList.add(field);
@@ -357,7 +361,44 @@ class MessageGenerator extends ProtobufContainer {
       out.printlnAnnotated('${classname}._() : super();', [
         NamedLocation(name: classname, fieldPathSegment: fieldPath, start: 0)
       ]);
-      out.println('factory ${classname}() => create();');
+      out.print('factory $classname(');
+      if (_fieldList.isNotEmpty) {
+        out.println('{');
+        for (final field in _fieldList) {
+          _emitDeprecatedIf(field.isDeprecated, out);
+          if (field.isRepeated && !field.isMapField) {
+            out.println(
+                '  ${field.baseType.getRepeatedDartTypeIterable(fileGen)} ${field.memberNames.fieldName},');
+          } else {
+            out.println(
+                '  ${field.getDartType(fileGen)} ${field.memberNames.fieldName},');
+          }
+        }
+        out.print('}');
+      }
+      if (_fieldList.isNotEmpty) {
+        out.println(') {');
+        out.println('  final _result = create();');
+        for (final field in _fieldList) {
+          out.println('  if (${field.memberNames.fieldName} != null) {');
+          if (field.isDeprecated) {
+            out.println(
+                '    // ignore: deprecated_member_use_from_same_package');
+          }
+          if (field.isRepeated || field.isMapField) {
+            out.println(
+                '    _result.${field.memberNames.fieldName}.addAll(${field.memberNames.fieldName});');
+          } else {
+            out.println(
+                '    _result.${field.memberNames.fieldName} = ${field.memberNames.fieldName};');
+          }
+          out.println('  }');
+        }
+        out.println('  return _result;');
+        out.println('}');
+      } else {
+        out.println(') => create();');
+      }
       out.println(
           'factory ${classname}.fromBuffer($_coreImportPrefix.List<$_coreImportPrefix.int> i,'
           ' [$_protobufImportPrefix.ExtensionRegistry r = $_protobufImportPrefix.ExtensionRegistry.EMPTY])'
@@ -378,7 +419,7 @@ class MessageGenerator extends ProtobufContainer {
 'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
 'Will be removed in next major version\')''');
       out.println('$classname copyWith(void Function($classname) updates) =>'
-          ' super.copyWith((message) => updates(message as $classname));'
+          ' super.copyWith((message) => updates(message as $classname)) as $classname;'
           ' // ignore: deprecated_member_use');
 
       out.println('$_protobufImportPrefix.BuilderInfo get info_ => _i;');
@@ -437,7 +478,7 @@ class MessageGenerator extends ProtobufContainer {
         return true;
       }
       if (field.baseType.isMessage) {
-        MessageGenerator child = field.baseType.generator;
+        final child = field.baseType.generator as MessageGenerator;
         if (_hasRequiredFields(child, alreadySeen)) {
           return true;
         }
@@ -530,18 +571,20 @@ class MessageGenerator extends ProtobufContainer {
                   start: 'set '.length)
             ]);
       }
-      _emitDeprecatedIf(field.isDeprecated, out);
-      _emitOverrideIf(field.overridesHasMethod, out);
-      _emitIndexAnnotation(field.number, out);
-      out.printlnAnnotated(
-          '$_coreImportPrefix.bool ${names.hasMethodName}() =>'
-          ' \$_has(${field.index});',
-          [
-            NamedLocation(
-                name: names.hasMethodName,
-                fieldPathSegment: memberFieldPath,
-                start: '$_coreImportPrefix.bool '.length)
-          ]);
+      if (field.hasPresence) {
+        _emitDeprecatedIf(field.isDeprecated, out);
+        _emitOverrideIf(field.overridesHasMethod, out);
+        _emitIndexAnnotation(field.number, out);
+        out.printlnAnnotated(
+            '$_coreImportPrefix.bool ${names.hasMethodName}() =>'
+            ' \$_has(${field.index});',
+            [
+              NamedLocation(
+                  name: names.hasMethodName,
+                  fieldPathSegment: memberFieldPath,
+                  start: '$_coreImportPrefix.bool '.length)
+            ]);
+      }
       _emitDeprecatedIf(field.isDeprecated, out);
       _emitOverrideIf(field.overridesClearMethod, out);
       _emitIndexAnnotation(field.number, out);
@@ -645,6 +688,8 @@ class MessageGenerator extends ProtobufContainer {
     var nestedEnumNames =
         _enumGenerators.map((e) => e.getJsonConstant(fileGen)).toList();
 
+    out.println('@$_coreImportPrefix.Deprecated'
+        '(\'Use ${toplevelParent.binaryDescriptorName} instead\')');
     out.addBlock("const $name = const {", "};", () {
       for (var key in json.keys) {
         out.print("'$key': ");
@@ -684,7 +729,7 @@ class MessageGenerator extends ProtobufContainer {
       return defaultMixin;
     }
 
-    String name = _descriptor.options.getExtension(Dart_options.mixin);
+    final name = _descriptor.options.getExtension(Dart_options.mixin) as String;
     if (name.isEmpty) return null; // don't use any mixins (override default)
     var mixin = declaredMixins[name] ?? findMixin(name);
     if (mixin == null) {

@@ -1,9 +1,14 @@
-# A Better ProtoBuf Library For Dart
+# Protobuf support for Dart
 
-[![Build Status](https://travis-ci.org/dart-lang/protobuf.svg?branch=master)](https://travis-ci.org/dart-lang/protobuf)
+[![CI status](https://github.com/dart-lang/protobuf/workflows/Dart%20CI/badge.svg)](https://github.com/dart-lang/protobuf/actions?query=workflow%3A%22Dart%22+branch%3Amaster)
+[![pub package](https://img.shields.io/pub/v/protobuf.svg)](https://pub.dev/packages/protobuf)
 
-This repository is home to packages related to support for the protobuf format for dart.
+[Protocol Buffers](https://developers.google.com/protocol-buffers) (protobuf)
+are Google's language-neutral, platform-neutral, extensible mechanism for
+serializing structured data.
+
+This repository is home to packages related to [protobuf for Dart](https://pub.dev/documentation/protobuf/latest/).
 It contains:
 
- - [protoc_plugin](protoc_plugin/) A dart back-end for the protoc compiler.
+ - [protoc_plugin](protoc_plugin/) A Dart back-end for the protoc compiler.
  - [protobuf](protobuf/) Support library for the generated code.

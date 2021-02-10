@@ -1,3 +1,25 @@
+## 19.3.1
+
+* Emit binary coded descriptors, which can be used to reflect over the options
+  given to the descriptor.
+
+## 19.3.0
+
+* Generate constructors with optional named arguments for prefilling fields.
+* Output language version 2.7 in generated files to support extension methods.
+
+## 19.2.1
+
+* Support optional proto3 fields.
+
+## 19.2.0+1
+
+* Fix syntax error introduced by gRPC client interceptor changes.
+
+## 19.2.0
+
+* Support client interceptors for gRPC. Requires grpc package 2.8.0 or newer.
+
 ## 19.1.0
 
 * Emit depreciation of generated `copyWith` and `clone` methods.

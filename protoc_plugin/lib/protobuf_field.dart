@@ -88,8 +88,26 @@ class ProtobufField {
   /// `map<key_type, value_type> map_field = N`.
   bool get isMapField {
     if (!isRepeated || !baseType.isMessage) return false;
-    MessageGenerator generator = baseType.generator;
+    final generator = baseType.generator as MessageGenerator;
     return generator._descriptor.options.hasMapEntry();
+  }
+
+  // `true` if this field should have a `hazzer` generated.
+  bool get hasPresence {
+    if (isRepeated) return false;
+    return true;
+    // TODO(sigurdm): to provide the correct semantics for non-optional proto3
+    // fields would need something like the following:
+    // return baseType.isMessage ||
+    //   descriptor.proto3Optional ||
+    //   parent.fileGen.descriptor.syntax == "proto2";
+    //
+    // This change would break any accidental uses of the proto3 hazzers, and
+    // would require some clean-up.
+    //
+    // We could consider keeping hazzers for proto3-oneof fields. There they
+    // seem useful and not breaking proto3 semantics, and dart protobuf uses it
+    // for example in package:protobuf/src/protobuf/mixins/well_known.dart.
   }
 
   /// Returns the expression to use for the Dart type.
@@ -98,7 +116,7 @@ class ProtobufField {
   /// [fileGen] represents the .proto file where we are generating code.
   String getDartType(FileGenerator fileGen) {
     if (isMapField) {
-      MessageGenerator d = baseType.generator;
+      final d = baseType.generator as MessageGenerator;
       var keyType = d._fieldList[0].baseType.getDartType(fileGen);
       var valueType = d._fieldList[1].baseType.getDartType(fileGen);
       return '$_coreImportPrefix.Map<$keyType, $valueType>';
@@ -164,7 +182,7 @@ class ProtobufField {
     args.add(quotedName);
 
     if (isMapField) {
-      MessageGenerator generator = baseType.generator;
+      final generator = baseType.generator as MessageGenerator;
       var key = generator._fieldList[0];
       var value = generator._fieldList[1];
       var keyType = key.baseType.getDartType(fileGen);
@@ -346,7 +364,7 @@ class ProtobufField {
         return '${baseType.getDartType(fileGen)}.getDefault';
       case FieldDescriptorProto_Type.TYPE_ENUM:
         var className = baseType.getDartType(fileGen);
-        EnumGenerator gen = baseType.generator;
+        final gen = baseType.generator as EnumGenerator;
         if (descriptor.hasDefaultValue() &&
             descriptor.defaultValue.isNotEmpty) {
           return '$className.${descriptor.defaultValue}';
@@ -382,7 +400,7 @@ class ProtobufField {
   }
 
   bool _hasBooleanOption(Extension extension) =>
-      descriptor?.options?.getExtension(extension) ?? false;
+      descriptor?.options?.getExtension(extension) as bool ?? false;
 
   String get _invalidDefaultValue => "dart-protoc-plugin:"
       " invalid default value (${descriptor.defaultValue})"

@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: test.proto
 //
-// @dart = 2.3
+// @dart = 2.7
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -21,7 +21,23 @@ class M extends $pb.GeneratedMessage {
   ;
 
   M._() : super();
-  factory M() => create();
+  factory M({
+    M m,
+    $1.M m1,
+    $2.M m2,
+  }) {
+    final _result = create();
+    if (m != null) {
+      _result.m = m;
+    }
+    if (m1 != null) {
+      _result.m1 = m1;
+    }
+    if (m2 != null) {
+      _result.m2 = m2;
+    }
+    return _result;
+  }
   factory M.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
   factory M.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
   @$core.Deprecated(
@@ -33,7 +49,7 @@ class M extends $pb.GeneratedMessage {
   'Using this can add significant overhead to your binary. '
   'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
   'Will be removed in next major version')
-  M copyWith(void Function(M) updates) => super.copyWith((message) => updates(message as M)); // ignore: deprecated_member_use
+  M copyWith(void Function(M) updates) => super.copyWith((message) => updates(message as M)) as M; // ignore: deprecated_member_use
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static M create() => M._();

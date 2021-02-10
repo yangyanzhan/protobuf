@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:math' as math;
+
 import 'package:protobuf/meta.dart';
 import 'package:protoc_plugin/src/dart_options.pb.dart';
 import 'package:protoc_plugin/src/descriptor.pb.dart';
@@ -256,7 +258,7 @@ MemberNames messageMemberNames(DescriptorProto descriptor,
 
   var existingNames = <String>{}..addAll(reservedMemberNames)..addAll(reserved);
 
-  var fieldNames = List<FieldNames>(indexes.length);
+  var fieldNames = List<FieldNames>.filled(indexes.length, null);
 
   void takeFieldNames(FieldNames chosen) {
     fieldNames[chosen.index] = chosen;
@@ -311,7 +313,8 @@ MemberNames messageMemberNames(DescriptorProto descriptor,
     return [_defaultWhichMethodName(name), _defaultClearMethodName(name)];
   }
 
-  for (var i = 0; i < descriptor.oneofDecl.length; i++) {
+  final realOneofCount = countRealOneofs(descriptor);
+  for (var i = 0; i < realOneofCount; i++) {
     var oneof = descriptor.oneofDecl[i];
 
     var oneofName = disambiguateName(
@@ -428,9 +431,8 @@ FieldNames _unusedMemberNames(FieldDescriptorProto field, int index,
 
 /// The name to use by default for the Dart getter and setter.
 /// (A suffix will be added if there is a conflict.)
-String _defaultFieldName(String fieldMethodSuffix) {
-  return '${fieldMethodSuffix[0].toLowerCase()}${fieldMethodSuffix.substring(1)}';
-}
+String _defaultFieldName(String fieldMethodSuffix) =>
+    lowerCaseFirstLetter(fieldMethodSuffix);
 
 String _defaultHasMethodName(String fieldMethodSuffix) =>
     'has$fieldMethodSuffix';
@@ -463,9 +465,10 @@ String _fieldMethodSuffix(FieldDescriptorProto field) {
   return underscoresToCamelCase(name);
 }
 
-String underscoresToCamelCase(s) => s.split('_').map(_capitalize).join('');
+String underscoresToCamelCase(String s) =>
+    s.split('_').map(_capitalize).join('');
 
-String _capitalize(s) =>
+String _capitalize(String s) =>
     s.isEmpty ? s : '${s[0].toUpperCase()}${s.substring(1)}';
 
 bool _isRepeated(FieldDescriptorProto field) =>
@@ -476,9 +479,9 @@ bool _isGroupOrMessage(FieldDescriptorProto field) =>
     field.type == FieldDescriptorProto_Type.TYPE_GROUP;
 
 String _nameOption(FieldDescriptorProto field) =>
-    field.options.getExtension(Dart_options.dartName);
+    field.options.getExtension(Dart_options.dartName) as String;
 
-bool _isDartFieldName(name) => name.startsWith(_dartFieldNameExpr);
+bool _isDartFieldName(String name) => name.startsWith(_dartFieldNameExpr);
 
 final _dartFieldNameExpr = RegExp(r'^[a-z]\w+$');
 
@@ -567,3 +570,19 @@ const _protobufEnumNames = <String>[
 
 // List of names used in Dart enums, which can't be used as enum member names.
 const _oneofEnumMemberNames = <String>['default', 'index', 'values'];
+
+// Count the number of 'real' oneofs - that is oneofs not created for an
+// optional proto3 field.
+int countRealOneofs(DescriptorProto descriptor) {
+  var highestIndexSeen = -1;
+  for (final field in descriptor.field) {
+    if (field.hasOneofIndex() && !field.proto3Optional) {
+      highestIndexSeen = math.max(highestIndexSeen, field.oneofIndex);
+    }
+  }
+  // The number of entries is one higher than the highest seen index.
+  return highestIndexSeen + 1;
+}
+
+String lowerCaseFirstLetter(String input) =>
+    input[0].toLowerCase() + input.substring(1);
